@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Dashboard - Daily Coding</title>
+  <link rel="stylesheet" href="dashboard1.css" />
+</head>
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/d/dd/Official_Logo_of_CHRIST%28Deemed_to_be_University%29%2C_bangalore.jpg/250px-Official_Logo_of_CHRIST%28Deemed_to_be_University%29%2C_bangalore.jpg" 
+             alt="CHRIST University Logo" class="logo">
+        <div class="brand">
+          <h2>Daily Coding</h2>
+          <p class="subtitle">College Edition</p>
+        </div>
+      </div>
+
+      <div class="user-info">
+        <div class="user-details">
+          <p class="user-greeting">Logged in as:</p>
+          <p class="user-name" id="studentName">Loading...</p>
+          <p class="user-role" id="studentRole">Student</p>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <ul class="nav-links">
+          <li><a href="student1.html" class="nav-link active">📊 Dashboard</a></li>
+          <li><a href="student2.html" class="nav-link">📁 Submissions</a></li>
+          <li><a href="login.html" class="nav-link logout" onclick="logout()">🚪 Logout</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="page-header">
+        <h1>Student Dashboard</h1>
+        <p class="page-subtitle">Track your coding progress and daily challenges</p>
+      </header>
+
+      <section class="dashboard-grid">
+        <!-- Progress Card -->
+        <div class="progress-card card">
+          <div class="card-header">
+            <h2>Your Progress</h2>
+            <p class="month-indicator" id="monthLabel"></p>
+          </div>
+          <div id="calendarContainer" class="calendar-container">
+            <!-- Calendar will be generated dynamically -->
+          </div>
+        </div>
+
+        <!-- Challenge Card -->
+        <div class="challenge-card card">
+          <div class="card-header">
+            <h2>Today's Challenge</h2>
+            <div class="challenge-meta">
+              <span class="difficulty-badge" id="challengeDifficulty">Loading...</span>
+              <span class="time-estimate" id="challengeTime">⏱ -- min</span>
+            </div>
+          </div>
+          <div class="challenge-content">
+            <h3 class="challenge-title" id="challengeTitle">Loading...</h3>
+            <p class="challenge-description" id="challengeDescription">Please wait...</p>
+            <a href="student3.html" class="start-button">
+              🚀 <span class="btn-text">Start Challenge</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card completed">
+            <div class="stat-icon">✅</div>
+            <div class="stat-content">
+              <h3>Completed</h3>
+              <p class="stat-number" id="completedCount">0</p>
+              <p class="stat-label">challenges</p>
+            </div>
+          </div>
+          <div class="stat-card missed">
+            <div class="stat-icon">❌</div>
+            <div class="stat-content">
+              <h3>Missed</h3>
+              <p class="stat-number" id="missedCount">0</p>
+              <p class="stat-label">challenges</p>
+            </div>
+          </div>
+          <div class="stat-card average">
+            <div class="stat-icon">⏱</div>
+            <div class="stat-content">
+              <h3>Avg. Time</h3>
+              <p class="stat-number" id="avgTime">--</p>
+              <p class="stat-label">minutes</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Link to external JS -->
+  <script src="student.js"></script>
+</body>
+</html>
