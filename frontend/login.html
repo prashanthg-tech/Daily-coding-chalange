@@ -54,6 +54,7 @@
     </div>
   </div>
 
+  <!-- ✅ Place script here at the bottom -->
   <script>
     document.getElementById("loginForm").addEventListener("submit", async function(event) {
       event.preventDefault();
@@ -63,7 +64,6 @@
       const role = document.querySelector('input[name="role"]:checked').value;
 
       try {
-        // ✅ Updated to point to backend on port 5000
         const response = await fetch("http://localhost:5000/api/auth/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -83,7 +83,7 @@
           if (role === "student") {
             window.location.href = "student1.html";
           } else if (role === "faculty") {
-            window.location.href = "faculty index.html";
+            window.location.href = "faculty-index.html"; // ✅ renamed to avoid space issues
           } else if (role === "admin") {
             window.location.href = "admin-dashboard.html";
           }

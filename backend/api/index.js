@@ -2,46 +2,33 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const path = require("path");
-
-// ✅ Load environment variables
 require("dotenv").config({ path: path.join(__dirname, ".env") });
 
-// Debug: show if MONGO_URI is loaded
-console.log("MONGO_URI from env:", process.env.MONGO_URI);
-
-const connectDB = require("./config/db");
+const connectDB = require("../config/db");
 
 // Import routes
-const authRoutes = require("./routes/authRoutes");
-const studentRoutes = require("./routes/studentRoutes");
-const facultyRoutes = require("./routes/facultyRoutes");
-const adminRoutes = require("./routes/adminRoutes");
+const authRoutes = require("../routes/authRoutes");
+const studentRoutes = require("../routes/studentRoutes");
+const facultyRoutes = require("../routes/facultyRoutes");
+const adminRoutes = require("../routes/adminRoutes");
+const challengeRoutes = require("../routes/challenges");
 
-// <-- Import challenges route -->
-const challengesRoutes = require("./routes/challenges");
-
+// ✅ Create app first
 const app = express();
 
 // Middleware
-app.use(
-  cors({
-    origin: process.env.CLIENT_URL || "*", // safer in production
-    credentials: true,
-  })
-);
+app.use(cors({ origin: process.env.CLIENT_URL || "*", credentials: true }));
 app.use(express.json());
 if (process.env.NODE_ENV !== "production") {
-  app.use(morgan("dev")); // logs requests in dev
+  app.use(morgan("dev"));
 }
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/student", studentRoutes);
+app.use("/api/students", studentRoutes);
 app.use("/api/faculty", facultyRoutes);
 app.use("/api/admin", adminRoutes);
-
-// <-- Mount the challenges route -->
-app.use("/api/challenges", challengesRoutes);
+app.use("/api/questions", challengeRoutes);  // ✅ fixed typo
 
 // Health check
 app.get("/", (req, res) => {
@@ -52,17 +39,16 @@ app.get("/", (req, res) => {
   });
 });
 
-// Error handler middleware
+// Error handler
 app.use((err, req, res, next) => {
   console.error("Error:", err.stack || err.message);
-  const status = err.statusCode || 500;
-  res.status(status).json({
+  res.status(err.statusCode || 500).json({
     success: false,
     message: err.message || "Something went wrong!",
   });
 });
 
-// Start server only after DB connection
+// Start server after DB connection
 const startServer = async () => {
   try {
     await connectDB();
@@ -77,11 +63,3 @@ const startServer = async () => {
 };
 
 startServer();
-
-// Graceful shutdown
-const shutdown = () => {
-  console.log("🛑 Server shutting down...");
-  process.exit(0);
-};
-process.on("SIGINT", shutdown);
-process.on("SIGTERM", shutdown);
