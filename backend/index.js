@@ -4,14 +4,14 @@ const morgan = require("morgan");
 const path = require("path");
 require("dotenv").config({ path: path.join(__dirname, ".env") });
 
-const connectDB = require("../config/db");
+const connectDB = require("./config/db");
 
 // Import routes
-const authRoutes = require("../routes/authRoutes");
-const studentRoutes = require("../routes/studentRoutes");
-const facultyRoutes = require("../routes/facultyRoutes");
-const adminRoutes = require("../routes/adminRoutes");
-const challengeRoutes = require("../routes/challenges");
+const authRoutes = require("./routes/authRoutes");
+const studentRoutes = require("./routes/studentRoutes");
+const facultyRoutes = require("./routes/facultyRoutes");
+const adminRoutes = require("./routes/adminRoutes");
+const challengeRoutes = require("./routes/challenges");
 
 // ✅ Create app first
 const app = express();
